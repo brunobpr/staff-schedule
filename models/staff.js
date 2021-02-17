@@ -17,10 +17,6 @@ const StaffSchema = new mongoose.Schema({
         type : String,
     },
 
-    index:{
-        type : Number,
-    }
-
 });
 
 module.exports = mongoose.model('Staff', StaffSchema);

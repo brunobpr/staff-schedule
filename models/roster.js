@@ -11,13 +11,7 @@ const RosterSchema = new mongoose.Schema({
         required: true
     },
 
-    monday: [mongoose.Schema.Types.Mixed],
-    tuesday: [mongoose.Schema.Types.Mixed],
-    wednesday: [mongoose.Schema.Types.Mixed],
-    thursday: [mongoose.Schema.Types.Mixed],
-    friday: [mongoose.Schema.Types.Mixed],
-    saturday: [mongoose.Schema.Types.Mixed],
-    sunday: [mongoose.Schema.Types.Mixed],    
+    staffs: [mongoose.Schema.Types.Mixed],   
 });
 
 module.exports = mongoose.model('Roster', RosterSchema);

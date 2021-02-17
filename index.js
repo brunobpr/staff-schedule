@@ -27,6 +27,9 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 // Storing the book-controller em uma variavel
 
+app.use(require('./routes/routes'));
+app.use(express.static(__dirname + '/'));
+
 // Listening to port
 app.listen(port, function (err) {
     console.log("Listening on Port: " + port)

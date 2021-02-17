@@ -15,6 +15,10 @@ const StaffSchema = new mongoose.Schema({
     
     email:{
         type : String,
+    },
+
+    index:{
+        type : Number,
     }
 
 });

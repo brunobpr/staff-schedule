@@ -1,0 +1,18 @@
+<%- include('templates/header') %>
+<div class="container">
+    <div class="row align-items-center">
+    <h1 class="text-center ">Create New Roster</h1>
+    <form enctype="application/json" action="/new-roster" method="POST">
+        <h5 class="text-center">The new roster will be created for: </h5> 
+        <h3 class="text-center "><strong>Week <%= data.weekNumber%> (<%= data.yearNumber%>)</strong></h5>
+        
+        <input type="hidden" name="weekNumber" value="<%= data.weekNumber%>">
+        <input type="hidden" name="yearNumber" value="<%= data.yearNumber %>">
+        <div class="text-center">
+        <button class="btn btn-danger btn-sx"><a class="link-light text-decoration-none" href="/">Cancel</a></button>
+        <button type="submit" class="btn btn-success btn-sx">Confirm</button>
+    </div>
+    </form>
+</div>
+</div>
+<%- include('templates/footer') %>

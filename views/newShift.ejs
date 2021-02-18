@@ -1,0 +1,28 @@
+<%- include('templates/header') %>
+
+    <div class="container">
+        <h1 class="text-center">Shift Registration</h1>
+        <form  enctype="application/json" action="/new-shift" method="POST">
+            <div  style="padding: 0px 0px 20px 0px" class="form-floating">
+                <input type="text" name="name" class="form-control" id="floatingName" placeholder="Name">
+                <label for="floatingName">Name</label>
+              </div>
+              <select name="startTime"class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                <option selected>Starts at</option>
+                <% data.forEach(function (time){%>
+                <option value="<%= time%>"><%= time%></option>
+                <%}); %>
+              </select>
+              <select name="endTime"class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                <option selected>Ends at</option>
+                <% data.forEach(function (time){%>
+                <option value="<%= time%>"><%= time%></option>
+                <%}); %>
+                </select>
+            </div>
+            <div class="text-center">
+            <button type="submit" class="btn btn-success">Save</button>
+            </div>
+          </form>
+    </div>
+<%- include('templates/footer') %>

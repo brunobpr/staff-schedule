@@ -2,7 +2,6 @@
 var Roster = require('../models/roster');
 var Staff = require('../models/staff');
 var Shift = require('../models/shifts');
-const roster = require('../models/roster');
 
 
 

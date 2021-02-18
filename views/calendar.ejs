@@ -1,4 +1,4 @@
-   <%- include('templates/header') %>
+<%- include('templates/header') %>
     <div class="container">
         <h1 class="text-center">ROSTER</h1>
         <h2 class="text-center">WEEK <%= data.roster.weekNumber %> (<%= data.roster.yearNumber %>)</h2>
@@ -64,21 +64,40 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     <div id="modalValue" name="a"></div>
                 </div>
-                <div class="modal-body align-middle">
+                <div class="modal-body text-center">
+
                     <% data.shifts.forEach(function (shift){ %>
-                        <form enctype="application/json" action="/" method="POST">
+                        <form style="padding: 0px 0px 20px 20px" enctype="application/json" action="/" method="POST">
                             <input type="hidden" class="staffName" name="staffName" value="">
                             <input type="hidden" name="id" value="<%= data.roster._id %>">
                             <input type="hidden" name="startTime" value="<%= shift.startTime%>">
                             <input type="hidden" name="endTime" value="<%= shift.endTime %>">
                             <button type="submit" class="btn btn-dark">
-                                <%= shift.startTime %>
-                                <%= shift.endTime %>
+                                <%= shift.startTime %> to <%= shift.endTime %>
                             </button>
                         </form>
+
                         <% }); %>
+                </div>
+                <div class="modal-footer">
+                    <form enctype="application/json" action="/" method="POST">
+                        <input type="hidden" class="staffName" name="staffName" value="">
+                        <input type="hidden" name="id" value="<%= data.roster._id %>">
+                        <input type="hidden" name="startTime" value="clean">
+                        <button type="submit" class="btn btn-danger">Clean</button>
+                    </form>
+                    <form enctype="application/json" action="/" method="POST">
+                        <input type="hidden" class="staffName" name="staffName" value="">
+                        <input type="hidden" name="id" value="<%= data.roster._id %>">
+                        <input type="hidden" name="startTime" value="Day Off">
+                        <button type="submit" class="btn btn-primary">Day Off</button>
+                    </form>
+                    <button class="btn btn-success"><a class="link-light text-decoration-none" href="/new-shift">Create
+                            Shift</a></button>
+
                 </div>
             </div>
         </div>
+    </div>
     </div>
     <%- include('templates/footer') %>

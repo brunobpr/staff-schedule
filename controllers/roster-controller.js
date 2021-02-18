@@ -102,10 +102,14 @@ exports.updateShift = function (req, res) {
     if (req.body.startTime.includes(':')) {
         var start = req.body.startTime.split(":")[0];
         var end = req.body.endTime.split(":")[0];
-    } else {
+    }else {
         var start = "OFF";
         var end = "";
     }
+    if(req.body.startTime.includes('clean')){
+        var start = "";
+        var end = "";
+    } 
     Roster.findById(id, function (err, roster) {
         if (err) {
             console.log(err);
@@ -116,14 +120,14 @@ exports.updateShift = function (req, res) {
                     staff[day] = (start + " " + end);
                 }
             });
+            
             Roster.updateOne({ _id: id }, roster,
                 function (err, result) {
                     if (err) {
                         console.log(err)
                     }
-                })
-
-            res.redirect('back');
+                    res.redirect('back');
+                })  
         }
     });
 };

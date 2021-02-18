@@ -20,6 +20,20 @@ exports.newRosterPage = function (req, res) {
     })
 };
 
+exports.showHistoricRosters = function (req, res) {
+    Roster.find({}, function (err, roster) {
+        if (err) {
+            //If a error occurs display the message
+            res.status(400).json(err);
+        }
+        else{
+            res.render('history', {
+                //The front-end will be able to display the data    
+                data: roster
+            });
+        }
+    });
+};
 
 exports.createRoster = function (req, res) {
     data = req.body;

@@ -1,0 +1,49 @@
+<%- include('templates/header') %>
+    <div class="container">
+        <div class="text-center">
+            <% data.slice().reverse().forEach(function (roster){%>
+                <p style="padding: 20px 0px 0px 0px">
+                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#target-<%= roster._id %>" aria-expanded="false"
+                        aria-controls="multiCollapseExample2">
+                        Week <%= roster.weekNumber %> (<%= roster.yearNumber %>)
+                    </button>
+                </p>
+                <div class="collapse multi-collapse" id="target-<%= roster._id %>">
+                    <div class="card card-body">
+                        <div class="table-responsive text-center">
+                            <table class="table table-bordered  table-striped border-dark">
+                                <thead class="align-middle">
+                                    <tr class="table-dark">
+                                        <th class="table-light" scope="col">Staff</th>
+                                        <th scope="col">Mon</th>
+                                        <th scope="col">Tue</th>
+                                        <th scope="col">Wed</th>
+                                        <th scope="col">Thu</th>
+                                        <th scope="col">Fri</th>
+                                        <th scope="col">Sat</th>
+                                        <th scope="col">Sun</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% roster.staffs.forEach(function (staff){%>
+                                        <tr class="align-middle table-light">
+                                            <th scope="row"><%= staff.name %></th>
+                                            <td><%= staff.monday %></td>
+                                            <td><%= staff.tuesday %></td>
+                                            <td><%= staff.wednesday %></td>
+                                            <td><%= staff.thursday %> </td>
+                                            <td><%= staff.friday %></td>
+                                            <td><%= staff.saturday %></td>
+                                            <td><%= staff.sunday%> </td>
+                                        </tr>
+                                        <%}); %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <%}); %>
+        </div>
+    </div>
+    <%- include('templates/footer') %>

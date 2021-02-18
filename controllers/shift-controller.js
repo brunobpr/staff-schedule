@@ -14,7 +14,6 @@ exports.createShift = function (req, res){
         "endTime" : req.body.endTime,
     }
     var newShift= new Shift(shift);
-    console.log(shift);
     newShift.save(function (err, shift) {
         if (err) {
             res.status(400).json(err);

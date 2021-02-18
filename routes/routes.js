@@ -15,4 +15,6 @@ router.get('/new-shift', shiftController.newShiftPage);
 router.post('/new-shift', shiftController.createShift);
 router.get('/new-staff', staffController.newStaffPage);
 router.post('/new-staff', staffController.createStaff);
+router.get('/history', rosterController.showHistoricRosters);
+
 module.exports = router;

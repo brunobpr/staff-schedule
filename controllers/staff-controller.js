@@ -1,7 +1,6 @@
 var Roster = require('../models/roster');
 var Staff = require('../models/staff');
-
-
+ 
 exports.createStaff = function (req, res) {
         data = req.body;
         staff = {
@@ -50,6 +49,25 @@ exports.createStaff = function (req, res) {
             }) 
         }); 
 };
+
+exports.getEmail = function () {
+    var data = [];
+    Staff.find({}, function (err, staffs) {
+        if (err) {
+            //If a error occurs display the message
+            res.status(400).json(err);
+        }
+        else{
+            staffs.forEach(function (staff){
+                data.append(staff.email);
+            })
+            console.log(data);
+            return data;
+        }
+    });
+};
+
+
 
 exports.newStaffPage = function (req, res) {
     res.render('staffForm',{});

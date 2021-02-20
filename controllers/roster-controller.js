@@ -94,8 +94,6 @@ exports.showRoster = function (req, res) {
                     res.status(400).json(err);
                 }
                 mainData.shifts = shift;
-
-
                 res.render('calendar', {
                     //The front-end will be able to display the data    
                     data: mainData
@@ -132,8 +130,7 @@ exports.updateShift = function (req, res) {
                 if (staff.name == name) {
                     staff[day] = (start + " " + end);
                 }
-            });
-            
+            });           
             Roster.updateOne({ _id: id }, roster,
                 function (err, result) {
                     if (err) {

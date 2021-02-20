@@ -1,62 +1,64 @@
 <%- include('templates/header') %>
-    <div class="container">
-        <h1 class="text-center">ROSTER</h1>
-        <h2 class="text-center">WEEK <%= data.roster.weekNumber %> (<%= data.roster.yearNumber %>)</h2>
-    </div>
-    <div class="table-responsive text-center">
-        <table class="table table-bordered  table-striped border-dark">
-            <thead class="align-middle">
-                <tr class="table-dark">
-                    <th class="table-light" scope="col">Staff</th>
-                    <th scope="col">Mon</th>
-                    <th scope="col">Tue</th>
-                    <th scope="col">Wed</th>
-                    <th scope="col">Thu</th>
-                    <th scope="col">Fri</th>
-                    <th scope="col">Sat</th>
-                    <th scope="col">Sun</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% data.roster.staffs.forEach(function (staff){%>
-                    <tr class="align-middle table-light">
-                        <th scope="row">
-                            <%= staff.name %>
-                        </th>
-                        <td data-bs-toggle="modal" onClick="saveValue('<%= staff.name %>,monday')"
-                            data-bs-target="#exampleModal">
-                            <%= staff.monday %>
-                        </td>
-                        <td data-bs-toggle="modal" onClick="saveValue('<%= staff.name %>,tuesday')"
-                            data-bs-target="#exampleModal">
-                            <%= staff.tuesday %>
-                        </td>
-                        <td data-bs-toggle="modal" onClick="saveValue('<%= staff.name %>,wednesday')"
-                            data-bs-target="#exampleModal">
-                            <%= staff.wednesday %>
-                        </td>
-                        <td data-bs-toggle="modal" onClick="saveValue('<%= staff.name %>,thursday')"
-                            data-bs-target="#exampleModal">
-                            <%= staff.thursday %>
-                        </td>
-                        <td data-bs-toggle="modal" onClick="saveValue('<%= staff.name %>,friday')"
-                            data-bs-target="#exampleModal">
-                            <%= staff.friday %>
-                        </td>
-                        <td data-bs-toggle="modal" onClick="saveValue('<%= staff.name %>,saturday')"
-                            data-bs-target="#exampleModal">
-                            <%= staff.saturday %>
-                        </td>
-                        <td data-bs-toggle="modal" onClick="saveValue('<%= staff.name %>,sunday')"
-                            data-bs-target="#exampleModal">
-                            <%= staff.sunday%>
-                        </td>
+    <div id="table-content">
+        <div class="container bg-white">
+            <h1 class="text-center">ROSTER</h1>
+            <h2 id="week-title" class="text-center">WEEK <%= data.roster.weekNumber %> (<%= data.roster.yearNumber %>)</h2>
+        </div>
+        <div class="table-responsive text-center">
+            <table class="table table-bordered  table-striped border-dark">
+                <thead class="align-middle">
+                    <tr class="table-dark">
+                        <th class="table-light" scope="col">Staff</th>
+                        <th scope="col">Mon</th>
+                        <th scope="col">Tue</th>
+                        <th scope="col">Wed</th>
+                        <th scope="col">Thu</th>
+                        <th scope="col">Fri</th>
+                        <th scope="col">Sat</th>
+                        <th scope="col">Sun</th>
                     </tr>
-                    <%}); %>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <% data.roster.staffs.forEach(function (staff){%>
+                        <tr class="align-middle table-light">
+                            <th scope="row">
+                                <%= staff.name %>
+                            </th>
+                            <td data-bs-toggle="modal" onClick="saveValue('<%= staff.name %>,monday')"
+                                data-bs-target="#modalShift">
+                                <%= staff.monday %>
+                            </td>
+                            <td data-bs-toggle="modal" onClick="saveValue('<%= staff.name %>,tuesday')"
+                                data-bs-target="#modalShift">
+                                <%= staff.tuesday %>
+                            </td>
+                            <td data-bs-toggle="modal" onClick="saveValue('<%= staff.name %>,wednesday')"
+                                data-bs-target="#modalShift">
+                                <%= staff.wednesday %>
+                            </td>
+                            <td data-bs-toggle="modal" onClick="saveValue('<%= staff.name %>,thursday')"
+                                data-bs-target="#modalShift">
+                                <%= staff.thursday %>
+                            </td>
+                            <td data-bs-toggle="modal" onClick="saveValue('<%= staff.name %>,friday')"
+                                data-bs-target="#modalShift">
+                                <%= staff.friday %>
+                            </td>
+                            <td data-bs-toggle="modal" onClick="saveValue('<%= staff.name %>,saturday')"
+                                data-bs-target="#modalShift">
+                                <%= staff.saturday %>
+                            </td>
+                            <td data-bs-toggle="modal" onClick="saveValue('<%= staff.name %>,sunday')"
+                                data-bs-target="#modalShift">
+                                <%= staff.sunday%>
+                            </td>
+                        </tr>
+                        <%}); %>
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modalShift" tabindex="-1" aria-labelledby="modalShiftLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -65,7 +67,6 @@
                     <div id="modalValue" name="a"></div>
                 </div>
                 <div class="modal-body text-center">
-
                     <% data.shifts.forEach(function (shift){ %>
                         <form style="padding: 0px 0px 20px 20px" enctype="application/json" action="/" method="POST">
                             <input type="hidden" class="staffName" name="staffName" value="">
@@ -98,5 +99,34 @@
             </div>
         </div>
     </div>
+    <div class="text-center">
+        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#sendEmailModal">
+            Send Roster
+        </button>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="sendEmailModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="sendEmailModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="sendEmailModalLabel">Post Roster</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Would you like to send the roster <strong> Week <%= data.roster.weekNumber %> (<%= data.roster.yearNumber %>) </strong> to all staff members?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <form>
+                        <input id="emailList" type="hidden" value="<% data.staffs.forEach(function (staff){ %><<%= staff.email %>><% }); %>">
+                        <input class="btn btn-success" type="button" value="Confirm"
+                            onClick="sendEmail(document.getElementById('table-content'), )" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <%- include('templates/footer') %>

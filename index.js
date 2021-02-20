@@ -10,7 +10,7 @@ const express = require('express');
 // Path helps to shorten the file name 
 const path = require('path');
 const mongoose = require('mongoose');
-
+var domtoimage = require('dom-to-image');
 
 // Dotenv allows us to hide secret info inside the sytem
 require('dotenv').config();

@@ -2,7 +2,7 @@
 var Roster = require('../models/roster');
 var Staff = require('../models/staff');
 var Shift = require('../models/shifts');
-
+var date = require('../utils/date');
 
 
 exports.newRosterPage = function (req, res) {
@@ -26,7 +26,7 @@ exports.showHistoricRosters = function (req, res) {
             //If a error occurs display the message
             res.status(400).json(err);
         }
-        else{
+        else {
             res.render('history', {
                 //The front-end will be able to display the data    
                 data: roster
@@ -65,23 +65,23 @@ exports.createRoster = function (req, res) {
                 if (err) {
                     res.status(400).json(err);
                 }
-                else{
+                else {
                     res.redirect('/');
                 }
             })
-        }  
+        }
     });
 };
 
 exports.showRoster = function (req, res) {
     var mainData = {};
-
     Roster.find({}, function (err, roster) {
         if (err) {
             //If a error occurs display the message
             res.status(400).json(err);
         }
         mainData.roster = roster[roster.length - 1];
+        mainData.days = date.getDays(mainData.roster.weekNumber, mainData.roster.yearNumber);
         Staff.find({}, function (err, staff) {
             if (err) {
                 //If a error occurs display the message
@@ -105,13 +105,13 @@ exports.showRoster = function (req, res) {
 
 exports.showRosterAdmin = function (req, res) {
     var mainData = {};
-
     Roster.find({}, function (err, roster) {
         if (err) {
             //If a error occurs display the message
             res.status(400).json(err);
         }
         mainData.roster = roster[roster.length - 1];
+        mainData.days = date.getDays(mainData.roster.weekNumber, mainData.roster.yearNumber);
         Staff.find({}, function (err, staff) {
             if (err) {
                 //If a error occurs display the message
@@ -134,7 +134,7 @@ exports.showRosterAdmin = function (req, res) {
 };
 
 exports.updateShift = function (req, res) {
-    // Getting the ID from the request body and storing it in variable
+
     const id = req.body.id;
     filtered = req.body.staffName.split(",");
     const name = filtered[0];
@@ -142,14 +142,14 @@ exports.updateShift = function (req, res) {
     if (req.body.startTime.includes(':')) {
         var start = req.body.startTime.split(":")[0];
         var end = req.body.endTime.split(":")[0];
-    }else {
+    } else {
         var start = "OFF";
         var end = "";
     }
-    if(req.body.startTime.includes('clean')){
+    if (req.body.startTime.includes('clean')) {
         var start = "";
         var end = "";
-    } 
+    }
     Roster.findById(id, function (err, roster) {
         if (err) {
             console.log(err);
@@ -159,14 +159,14 @@ exports.updateShift = function (req, res) {
                 if (staff.name == name) {
                     staff[day] = (start + " " + end);
                 }
-            });           
+            });
             Roster.updateOne({ _id: id }, roster,
                 function (err, result) {
                     if (err) {
                         console.log(err)
                     }
                     res.redirect('back');
-                })  
+                })
         }
     });
 };

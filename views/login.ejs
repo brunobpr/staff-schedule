@@ -1,27 +1,27 @@
 <%- include('templates/header') %>
 
-<div class="container">
-    <div class="text-center">
-        <% if (data != undefined){%>
-            <div style="margin: 20px" class="alert alert-danger" role="alert">
-                <%= data %>
-              </div>
-        <%}%>
+    <div class="container">
+        <div class="text-center">
+            <% if (data !=undefined){%>
+                <div style="margin: 20px" class="alert alert-danger" role="alert">
+                    <%= data %>
+                </div>
+                <%}%>
 
-    <h1 style="padding: 20px 0px 0px 0px">Login Page</h1>
-    <form action="/login" method="POST"> 
-        <div class="mb-3">
-          <label for="inputUsername" class="form-label">Username</label>
-          <input type="text" class="form-control" id="inputUsername"  name="username">
+                    <h1 style="padding: 20px 0px 0px 0px">Login Page</h1>
+                    <form action="/login" method="POST">
+                        <div class="mb-3">
+                            <label for="inputUsername" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="inputUsername" name="username">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputPassword" class="form-label">Password</label>
+                            <input type="password" name="password" class="form-control" id="inputPassword">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Sign In</button>
+                    </form>
         </div>
-        <div class="mb-3">
-          <label for="inputPassword" class="form-label">Password</label>
-          <input type="password"  name="password" class="form-control" id="inputPassword">
-        </div>
-        <button type="submit" class="btn btn-primary">Sign In</button>
-      </form>
     </div>
-</div>
 
-  
-<%- include('templates/footer') %>
+
+    <%- include('templates/footer') %>

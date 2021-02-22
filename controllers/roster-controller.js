@@ -94,7 +94,7 @@ exports.showRoster = function (req, res) {
                     res.status(400).json(err);
                 }
                 mainData.shifts = shift;
-                res.render('calendar', {
+                res.render('home', {
                     //The front-end will be able to display the data    
                     data: mainData
                 });
@@ -103,6 +103,35 @@ exports.showRoster = function (req, res) {
     });
 };
 
+exports.showRosterAdmin = function (req, res) {
+    var mainData = {};
+
+    Roster.find({}, function (err, roster) {
+        if (err) {
+            //If a error occurs display the message
+            res.status(400).json(err);
+        }
+        mainData.roster = roster[roster.length - 1];
+        Staff.find({}, function (err, staff) {
+            if (err) {
+                //If a error occurs display the message
+                res.status(400).json(err);
+            }
+            mainData.staffs = staff;
+            Shift.find({}, function (err, shift) {
+                if (err) {
+                    //If a error occurs display the message
+                    res.status(400).json(err);
+                }
+                mainData.shifts = shift;
+                res.render('calendar', {
+                    //The front-end will be able to display the data    
+                    data: mainData
+                });
+            });
+        });
+    });
+};
 
 exports.updateShift = function (req, res) {
     // Getting the ID from the request body and storing it in variable

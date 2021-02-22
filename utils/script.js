@@ -23,7 +23,11 @@ function sendEmail(node) {
         console.log(emailList)
         Email.send({ 
               SecureToken: "6057518e-51be-47c4-8f4e-1ca615030a02",
+<<<<<<< HEAD
               To: emailList, 
+=======
+              To: "bprweb@aol.com", 
+>>>>>>> main
               From: "brunopr.bpr@gmail.com", 
               Subject: emailSubject, 
               Body: "<h2>Roster for " + emailSubject + "</h2>", 

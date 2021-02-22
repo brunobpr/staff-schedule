@@ -23,7 +23,7 @@ exports.createNewUser = function (req, res) {
                 return res.render("register", {
                     data: "It was not possible to create new admin!"
                 });
-            }else{
+            } else {
                 return res.render("register", {
                     data: "The new admin " + username + " was created!"
                 });
@@ -40,9 +40,11 @@ exports.userLoginPage = function (req, res) {
 exports.userLoginAuth = function (req, res, next) {
     passport.authenticate('local', function (err, user, info) {
         if (err) { return next(err); }
-        if (!user) { return res.render("login", {
-            data: "User or password is not correct!"
-        }); }
+        if (!user) {
+            return res.render("login", {
+                data: "User or password is not correct!"
+            });
+        }
         req.logIn(user, function (err) {
             if (err) { return next(err); }
             return res.redirect('/');

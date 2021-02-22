@@ -1,27 +1,27 @@
 <%- include('templates/header-admin') %>
-<div class="container">
-    <div class="text-center">
-    <h1 style="padding: 20px 0px 0px 0px">Create New Admin</h1>
-    <% if (data != undefined){ if(data.includes('not')){%>
-        <div style="margin: 20px" class="alert alert-danger" role="alert">
-            <%= data %>
-          </div>
-          <%}else if(data.includes('created')){%>
-            <div style="margin: 20px" class="alert alert-success" role="alert">
-                <%= data %>
-            </div>
-    <%}}%>
-    <form action="/register" method="POST"> 
-        <div class="mb-3">
-          <label for="inputUsername" class="form-label">Username</label>
-          <input type="text" class="form-control" id="inputUsername"  name="username">
+    <div class="container">
+        <div class="text-center">
+            <h1 style="padding: 20px 0px 0px 0px">Create New Admin</h1>
+            <% if (data !=undefined){ if(data.includes('not')){%>
+                <div style="margin: 20px" class="alert alert-danger" role="alert">
+                    <%= data %>
+                </div>
+                <%}else if(data.includes('created')){%>
+                    <div style="margin: 20px" class="alert alert-success" role="alert">
+                        <%= data %>
+                    </div>
+                    <%}}%>
+                        <form action="/register" method="POST">
+                            <div class="mb-3">
+                                <label for="inputUsername" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="inputUsername" name="username">
+                            </div>
+                            <div class="mb-3">
+                                <label for="inputPassword" class="form-label">Password</label>
+                                <input type="password" name="password" class="form-control" id="inputPassword">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Create</button>
+                        </form>
         </div>
-        <div class="mb-3">
-          <label for="inputPassword" class="form-label">Password</label>
-          <input type="password"  name="password" class="form-control" id="inputPassword">
-        </div>
-        <button type="submit" class="btn btn-primary">Create</button>
-      </form>
     </div>
-</div>
-<%- include('templates/footer') %>
+    <%- include('templates/footer') %>

@@ -26,7 +26,7 @@ function sendEmail(node) {
             Email.send({
                 SecureToken: "6057518e-51be-47c4-8f4e-1ca615030a02",
                 To: recipientEmail,
-                From: emailList[0], 
+                From: emailList[0],
                 Subject: emailSubject,
                 Body: "<h2>Roster for " + emailSubject + "</h2>",
                 Attachments: [
@@ -52,3 +52,34 @@ function sendEmail(node) {
     });
 }
 
+function formatTime(inputSrc) {
+    input = document.getElementById(inputSrc);
+    value = input.value;
+
+    if (!value.match('[0-9:]+')) {
+        input.value = "";
+    }else{
+    if (value.length == 2) {
+        input.value = value + ":00"
+        hour = value.substring(0, 2);
+        if (parseInt(hour) > 23) {
+            input.value = "";
+        } else {
+            document.getElementById("alert").hidden = true;
+            if (inputSrc == "startInput") {
+                document.getElementById("endInput").focus();
+            }
+            if (inputSrc == "endInput") {
+                start = parseInt(document.getElementById("startInput").value.substring(0,2));
+                if (start > hour) {
+                    document.getElementById("alert").hidden = false;
+                    document.getElementById("alert").innerHTML = "Shift can't end before the start!"
+                }
+            }
+        }
+    }
+    }
+    if(value.length > 2){
+        input.value = value.substring(0, 2);
+    }
+}

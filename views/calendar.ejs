@@ -2,7 +2,8 @@
     <div id="table-content">
         <div class="container bg-white">
             <h1 class="text-center">ROSTER</h1>
-            <h2 id="week-title" class="text-center">WEEK <%= data.roster.weekNumber %> (<%= data.roster.yearNumber %>)</h2>
+            <h2 id="week-title" class="text-center">WEEK <%= data.roster.weekNumber %> (<%= data.roster.yearNumber %>)
+            </h2>
         </div>
         <div class="table-responsive text-center">
             <table class="table table-bordered  table-striped border-dark">
@@ -10,8 +11,10 @@
                     <tr class="table-dark">
                         <th class="table-light" scope="col">Staff</th>
                         <% data.days.forEach(function (day){%>
-                        <th scope="col"><%= day %></th>
-                        <%}); %>
+                            <th scope="col">
+                                <%= day %>
+                            </th>
+                            <%}); %>
                     </tr>
                 </thead>
                 <tbody>
@@ -54,75 +57,6 @@
             </table>
         </div>
     </div>
-    <div class="modal fade" id="modalShift" tabindex="-1" aria-labelledby="modalShiftLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" name="modalTitle" id="modalTitle"></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    <div id="modalValue" name="a"></div>
-                </div>
-                <div class="modal-body text-center">
-                    <% data.shifts.forEach(function (shift){ %>
-                        <form style="padding: 0px 0px 20px 20px" enctype="application/json" action="/" method="POST">
-                            <input type="hidden" class="staffName" name="staffName" value="">
-                            <input type="hidden" name="id" value="<%= data.roster._id %>">
-                            <input type="hidden" name="startTime" value="<%= shift.startTime%>">
-                            <input type="hidden" name="endTime" value="<%= shift.endTime %>">
-                            <button type="submit" class="btn btn-dark">
-                                <%= shift.startTime %> to <%= shift.endTime %>
-                            </button>
-                        </form>
-
-                        <% }); %>
-                </div>
-                <div class="modal-footer">
-                    <form enctype="application/json" action="/" method="POST">
-                        <input type="hidden" class="staffName" name="staffName" value="">
-                        <input type="hidden" name="id" value="<%= data.roster._id %>">
-                        <input type="hidden" name="startTime" value="clean">
-                        <button type="submit" class="btn btn-danger">Clean</button>
-                    </form>
-                    <form enctype="application/json" action="/" method="POST">
-                        <input type="hidden" class="staffName" name="staffName" value="">
-                        <input type="hidden" name="id" value="<%= data.roster._id %>">
-                        <input type="hidden" name="startTime" value="Day Off">
-                        <button type="submit" class="btn btn-primary">Day Off</button>
-                    </form>
-                    <button class="btn btn-success"><a class="link-light text-decoration-none" href="/new-shift">Create
-                            Shift</a></button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="text-center">
-        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#sendEmailModal">
-            Send Roster
-        </button>
-    </div>
-    <!-- Modal -->
-    <div class="modal fade" id="sendEmailModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="sendEmailModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="sendEmailModalLabel">Post Roster</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Would you like to send the roster <strong> Week <%= data.roster.weekNumber %> (<%= data.roster.yearNumber %>) </strong> to all staff members?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <form>
-                        <input id="emailList" type="hidden" value="<% data.staffs.forEach(function (staff){ %><%= staff.email %>,<% }); %>">
-                        <input class="btn btn-success" type="button" value="Confirm"
-                        data-bs-dismiss="modal" onClick="sendEmail(document.getElementById('table-content'))" />
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
+    <%- include('shift-modal') %>
+    <%- include('email-modal') %>
     <%- include('templates/footer') %>

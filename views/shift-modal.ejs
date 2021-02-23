@@ -1,0 +1,52 @@
+<div class="modal fade" id="modalShift" tabindex="-1" aria-labelledby="modalShiftLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" name="modalTitle" id="modalTitle"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div id="modalValue" name="a"></div>
+            </div>
+            <div class="modal-body text-center">
+                <form style="padding-bottom: 20px" class="row justify-content-md-center" enctype="application/json" action="/" method="POST">
+                    <div class="alert alert-danger" id="alert" role="alert" hidden></div>
+                    <div class="col">
+                        <input type="tel" name="startTime" class="form-control" oninput="formatTime('startInput')" id="startInput" pattern="[0-9:]+" placeholder="From" required>
+                        <input type="hidden" class="staffName" name="staffName" value="">
+                        <input type="hidden" name="id" value="<%= data.roster._id %>">
+                    </div>
+                    <div class="col">
+                        <input type="tel" name="endTime" class="form-control" oninput="formatTime('endInput')"id="endInput" pattern="[0-9:]+" placeholder="To" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary col">GO</button>
+                </form>
+                <% data.shifts.forEach(function (shift){ %>
+                    <form style="padding: 0px 0px 20px 0px" enctype="application/json" action="/" method="POST">
+                        <input type="hidden" class="staffName" name="staffName" value="">
+                        <input type="hidden" name="id" value="<%= data.roster._id %>">
+                        <input type="hidden" name="startTime" value="<%= shift.startTime%>">
+                        <input type="hidden" name="endTime" value="<%= shift.endTime %>">
+                        <button type="submit" class="btn btn-dark">
+                            <%= shift.startTime %> to <%= shift.endTime %>
+                        </button>
+                    </form>
+                    <% }); %>
+            </div>
+            <div class="modal-footer">
+                <form enctype="application/json" action="/" method="POST">
+                    <input type="hidden" class="staffName" name="staffName" value="">
+                    <input type="hidden" name="id" value="<%= data.roster._id %>">
+                    <input type="hidden" name="startTime" value="clean">
+                    <button type="submit" class="btn btn-danger">Clean</button>
+                </form>
+                <form enctype="application/json" action="/" method="POST">
+                    <input type="hidden" class="staffName" name="staffName" value="">
+                    <input type="hidden" name="id" value="<%= data.roster._id %>">
+                    <input type="hidden" name="startTime" value="Day Off">
+                    <button type="submit" class="btn btn-warning">Day Off</button>
+                </form>
+                <button class="btn btn-success"><a class="link-light text-decoration-none" href="/new-shift">Create
+                        Shift</a></button>
+            </div>
+        </div>
+    </div>
+</div>

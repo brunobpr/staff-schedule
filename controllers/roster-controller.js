@@ -134,7 +134,6 @@ exports.showRosterAdmin = function (req, res) {
 };
 
 exports.updateShift = function (req, res) {
-
     const id = req.body.id;
     filtered = req.body.staffName.split(",");
     const name = filtered[0];

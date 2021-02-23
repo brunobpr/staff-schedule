@@ -83,3 +83,23 @@ function formatTime(inputSrc) {
         input.value = value.substring(0, 2);
     }
 }
+
+function calculateHours(){
+    nodes = document.getElementsByName("hoursHolder");
+    nodes.forEach(function (node){
+        count = 0;
+        hours = node.textContent.split(',');
+        hours.forEach(function (hour){       
+            if(hour.length == 5){
+                start = parseInt(hour.split(' ')[0]);
+                finish = parseInt(hour.split(' ')[1]);
+                count = count + (finish - start);
+            }
+        })
+        node.textContent = count.toString();
+    })
+    modal = document.getElementById("modalHours").getAttribute("aria-expanded");
+    if(modal == "false"){
+        document.location.reload();
+    }
+}

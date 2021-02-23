@@ -1,0 +1,21 @@
+
+<div class="collapse" id="collapseHours">
+  <div class="card card-body">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+              <th scope="col">Staff</th>
+              <th scope="col">Hours</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% data.roster.staffs.forEach(function (staff){%>
+            <tr>
+                    <th scope="row" ><%= staff.name %></th>
+                    <th scope="row" name="hoursHolder"><%= staff.monday %>,<%= staff.tuesday %>,<%= staff.wednesday %>,<%= staff.thursday %>,<%= staff.friday %>,<%= staff.saturday %>,<%= staff.sunday %></th>                   
+            </tr>
+            <%}); %> 
+          </tbody>
+    </table>
+  </div>
+</div>

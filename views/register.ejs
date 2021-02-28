@@ -3,11 +3,11 @@
         <div class="text-center">
             <h1 style="padding: 20px 0px 0px 0px">Create New Admin</h1>
             <% if (data !=undefined){ if(data.includes('not')){%>
-                <div style="margin: 20px" class="alert alert-danger" role="alert">
+                <div id="alertMessage" class="alert alert-danger" role="alert">
                     <%= data %>
                 </div>
                 <%}else if(data.includes('created')){%>
-                    <div style="margin: 20px" class="alert alert-success" role="alert">
+                    <div id="alertMessage" class="alert alert-success" role="alert">
                         <%= data %>
                     </div>
                     <%}}%>

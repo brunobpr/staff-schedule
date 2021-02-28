@@ -8,8 +8,8 @@
         <div class="table-responsive text-center">
             <table class="table table-bordered  table-striped border-dark">
                 <thead class="align-middle">
-                    <tr class="table-dark">
-                        <th class="table-light" scope="col">Staff</th>
+                    <tr class="table text-white" id="table-header">
+                        <th class="align-middle" scope="col">Staff</th>
                         <% data.days.forEach(function (day){%>
                             <th scope="col">
                                 <%= day %>
@@ -20,7 +20,7 @@
                 <tbody>
                     <% data.roster.staffs.forEach(function (staff){%>
                         <tr class="align-middle table-light">
-                            <th style="padding: 30px 0px 30px 0px;" scope="row">
+                            <th id="table-staff-name" scope="row">
                                 <%= staff.name %>
                             </th>
                             <td data-bs-toggle="modal" onClick="saveValue('<%= staff.name %>,monday')"

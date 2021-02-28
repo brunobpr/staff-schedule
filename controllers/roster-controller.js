@@ -38,6 +38,9 @@ exports.showHistoricRosters = function (req, res) {
 exports.createRoster = function (req, res) {
     data = req.body;
     var staffs = [];
+    if(data.weekNumber > 52){
+        data.weekNumber = 0;
+    }
     Staff.find({}, function (err, staffData) {
         if (err) {
             //If a error occurs display the message

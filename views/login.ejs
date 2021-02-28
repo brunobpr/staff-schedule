@@ -3,12 +3,12 @@
     <div class="container">
         <div class="text-center">
             <% if (data !=undefined){%>
-                <div style="margin: 20px" class="alert alert-danger" role="alert">
+                <div id="alertMessage" class="alert alert-danger" role="alert">
                     <%= data %>
                 </div>
                 <%}%>
 
-                    <h1 style="padding: 20px 0px 0px 0px">Login Page</h1>
+                    <h1 id="rosterTitle">Login Page</h1>
                     <form action="/login" method="POST">
                         <div class="mb-3">
                             <label for="inputUsername" class="form-label">Username</label>

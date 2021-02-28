@@ -41,6 +41,7 @@ app.use(passport.initialize());
 app.use(passport.session()); 
 app.use(require('./routes/routes'));
 app.use(express.static(__dirname + '/'));
+app.use(express.static(__dirname + '/img'));
 var port = process.env.PORT || 3000; 
 
 app.listen(port, function () { 

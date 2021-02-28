@@ -5,28 +5,28 @@
         <h1 class="text-center">ROSTER</h1>
         <h2 id="week-title" class="text-center">WEEK <%= data.roster.weekNumber %> (<%= data.roster.yearNumber %>)</h2>
     </div>
-    <div class="table-responsive text-center">
-        <table class="table table-bordered  table-striped border-dark">
+    <div class="table-responsive text-center ">
+        <table class="table">
             <thead class="align-middle">
-                <tr class="table-dark">
-                    <th class="table-light" scope="col">Staff</th>
+                <tr class="table text-white" id="table-header">
+                    <th class="align-middle" scope="col">Staff</th>
                     <% data.days.forEach(function (day){%>
                     <th scope="col"><%= day %></th>
                     <%}); %>
                 </tr>
             </thead>
             <tbody>
-                <tbody>
+                <tbody id="table-body">
                     <% data.roster.staffs.forEach(function (staff){%>
-                        <tr class="align-middle table-light">
-                            <th scope="row"><%= staff.name %></th>
-                            <td><%= staff.monday %></td>
-                            <td><%= staff.tuesday %></td>
-                            <td><%= staff.wednesday %></td>
-                            <td><%= staff.thursday %> </td>
-                            <td><%= staff.friday %></td>
-                            <td><%= staff.saturday %></td>
-                            <td><%= staff.sunday%> </td>
+                        <tr class="align-middle">
+                            <th id="table-body"scope="row"><%= staff.name %></th>
+                            <td id="table-body"><%= staff.monday %></td>
+                            <td id="table-body"><%= staff.tuesday %></td>
+                            <td id="table-body"><%= staff.wednesday %></td>
+                            <td id="table-body"><%= staff.thursday %> </td>
+                            <td id="table-body"><%= staff.friday %></td>
+                            <td id="table-body"><%= staff.saturday %></td>
+                            <td id="table-body"><%= staff.sunday%> </td>
                         </tr>
                         <%}); %>
                 </tbody>

@@ -1,0 +1,29 @@
+#table-staff-name{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#rosterTitle{
+    padding-top: 20px
+}
+
+#alertMessage{
+    margin: 20px;
+}
+
+#header, #footer{
+        background-color: #055075;
+        box-shadow:2px 2px 4px #000000;
+}
+
+#table-header{
+    background-color: #055075;
+    text-shadow:4px 4px 10px #000000;
+    font-weight: bold;
+    border: 2px solid black;
+    border-radius: 50%;
+}
+
+#table-body{
+    box-shadow:1px 1px 2px #000000;
+}

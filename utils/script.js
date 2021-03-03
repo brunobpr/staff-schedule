@@ -18,17 +18,18 @@ function sendEmail(node) {
     domtoimage.toPng(node).then(function (dataUrl) {
         var img = new Image();
         img.src = dataUrl;
-        var emailSubject = (document.getElementById('week-title').textContent).toString();
+        var emailSubject = (document.getElementById('week-title').textContent).toString().toLowerCase();
         emailList = document.getElementById('emailList').value;
         emailList = emailList.split(",")
         delete emailList[emailList.length - 1]
         emailList.forEach(function (recipientEmail) {
+            console.log(emailSubject);
             Email.send({
                 SecureToken: "6057518e-51be-47c4-8f4e-1ca615030a02",
                 To: recipientEmail,
                 From: emailList[0],
-                Subject: emailSubject,
-                Body: "<h2>Roster for " + emailSubject + "</h2>",
+                Subject: "New Roster Available",
+                Body: "<h2>Roster for " + emailSubject + "</h2><p>Hi, there is a new roster for "+emailSubject+" available online.</p><p>A friendly reminder that it's now possible to make especial requests on the website.</p><p>Kind regards,</p><p>Bruno</p>",
                 Attachments: [
                     {
                         "type": "image/jpg",
@@ -37,13 +38,25 @@ function sendEmail(node) {
                     }]
             })
                 .then(function (message) {
-                    if (!message.includes("OK")) {
+                    if (message.includes("to")) {
                         messageError = message + " -> " + recipientEmail;
-                        alert(messageError);
+                        document.getElementById("alert").hidden = false;
+                        document.getElementById("alert").innerHTML = messageError;
                     }
-                    else {
-                        console.log("Sent!")
-                        messageError = "Done!"
+                    else if(message.includes("subject")) {
+                        messageError = message + " -> " + emailSubject;
+                        document.getElementById("alert").hidden = false;
+                        document.getElementById("alert").innerHTML = messageError;
+                    }
+                    else if(message.includes("from")) {
+                        messageError = message + " -> " + emailList[0];
+                        document.getElementById("alert").hidden = false;
+                        document.getElementById("alert").innerHTML = messageError;
+                    }
+                    else if(message.includes("OK")) {
+                        document.getElementById("alert").hidden = false;
+                        document.getElementById("alert").setAttribute("class", "alert alert-success")
+                        document.getElementById("alert").innerHTML = "The roster was sent to all staff members!";
                     }
                 });
         })

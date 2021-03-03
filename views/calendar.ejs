@@ -1,10 +1,11 @@
 <%- include('templates/header-admin') %>
-    <div id="table-content">
+    <div id="table-content" class="bg-white">
         <div class="container bg-white">
             <h1 class="text-center">ROSTER</h1>
             <h2 id="week-title" class="text-center">WEEK <%= data.roster.weekNumber %> (<%= data.roster.yearNumber %>)
             </h2>
         </div>
+        <div class="alert alert-danger" id="alert" role="alert" hidden></div>
         <div class="table-responsive text-center">
             <table class="table table-bordered  table-striped border-dark">
                 <thead class="align-middle">

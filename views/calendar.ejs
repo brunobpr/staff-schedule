@@ -21,9 +21,16 @@
                 <tbody>
                     <% data.roster.staffs.forEach(function (staff){%>
                         <tr class="align-middle table-light">
-                            <th id="table-staff-name" onClick="cleanValue('<%= staff.name %>')" scope="row">
-                                    <%= staff.name %>
+                            <% if(staff.name == 'Viktor '){%>
+                            <th id="table-staff-name" data-bs-toggle="modal" data-bs-target="#modalgame" scope="row">
+                                <%= staff.name %>
                             </th>
+                            <%
+                            }else{%>
+                                <th id="table-staff-name" onClick="cleanValue('<%= staff.name %>')" scope="row">
+                                    <%= staff.name %>
+                                </th>
+                            <% } %>
                             <td data-bs-toggle="modal" onClick="saveValue('<%= staff.name %>,monday')"
                                 data-bs-target="#modalShift">
                                 <%= staff.monday %>

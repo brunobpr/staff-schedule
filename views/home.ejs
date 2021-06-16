@@ -6,7 +6,7 @@
         <h2 id="week-title" class="text-center">WEEK <%= data.roster.weekNumber %> (<%= data.roster.yearNumber %>)</h2>
     </div>
     <div class="table-responsive text-center ">
-        <table class="table">
+        <table class="table table-bordered table-striped border-dark">
             <thead class="align-middle">
                 <tr class="table text-white" id="table-header">
                     <th class="align-middle" scope="col">Staff</th>
@@ -16,10 +16,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tbody id="table-body">
+                <tbody>
                     <% data.roster.staffs.forEach(function (staff){%>
-                        <tr class="align-middle">
-                            <th id="table-body"scope="row"><%= staff.name %></th>
+                        <tr class="align-middle table-light">
+                            <th id="table-body" scope="row"><%= staff.name %></th>
                             <td id="table-body"><%= staff.monday %></td>
                             <td id="table-body"><%= staff.tuesday %></td>
                             <td id="table-body"><%= staff.wednesday %></td>

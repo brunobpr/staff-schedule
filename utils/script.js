@@ -12,7 +12,6 @@ function saveValue(text) {
     title.textContent = day + " | " + name;
 }
 
-
 function sendEmail(node) {
     var messageError = "";
     domtoimage.toPng(node).then(function (dataUrl) {

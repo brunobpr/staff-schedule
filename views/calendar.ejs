@@ -21,8 +21,8 @@
                 <tbody>
                     <% data.roster.staffs.forEach(function (staff){%>
                         <tr class="align-middle table-light">
-                            <th id="table-staff-name" scope="row">
-                                <%= staff.name %>
+                            <th id="table-staff-name" onClick="cleanValue('<%= staff.name %>')" scope="row">
+                                    <%= staff.name %>
                             </th>
                             <td data-bs-toggle="modal" onClick="saveValue('<%= staff.name %>,monday')"
                                 data-bs-target="#modalShift">
@@ -61,9 +61,6 @@
     <div class="text-center">
         <button id="modalHours"  onClick="calculateHours()" class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHours" aria-expanded="false" aria-controls="collapseHours">
             Check Hours
-        </button>
-        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#sendEmailModal">
-            Send Roster
         </button>
     </div>
     <%- include('shift-modal') %>

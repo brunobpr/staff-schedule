@@ -1,0 +1,44 @@
+<%- include('templates/header-admin') %>
+        <div class="container">
+            <div class="text-center">
+                <ul class="list-group">
+                    <% data.forEach(function (staff){%>
+                    <p>
+                        <li class="list-group-item" data-bs-toggle="collapse" data-bs-target="#target-<%= staff._id %>"
+                            aria-expanded="false">
+                            <%= staff.first_name %>
+                        </li>
+                    </p>
+                    <div class="collapse multi-collapse" id="target-<%= staff._id %>">
+                        <div class="card card-body">
+                            <h1 class="text-center">Staff Update</h1>
+                            <form enctype="application/json" action="/update-staff" method="POST">
+                                <div class="mb-3">
+                                  <label for="firstName" class="form-label">First Name</label>
+                                  <input name="firstName" value="<%= staff.first_name %>" type="text" class="form-control" id="firstName" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="lastName" class="form-label">Last Name</label>
+                                    <input name="lastName" value="<%= staff.last_name %>" type="text" class="form-control" id="lastName">
+                                  </div>
+                                  <div class="mb-3">
+                                    <label for="email" class="form-label">E-mail</label>
+                                    <input name="email" type="email" class="form-control" id="email" value="<%= staff.email %>">
+                                    <input name="id" id="id" type="hidden" value="<%= staff._id %>">
+                                  </div>
+                               <p>
+                                  <button type="submit" class="btn btn-primary">Update</button>
+                              </form>
+                              <form enctype="application/json" action="/staff-delete" method="POST">
+                                <input name="id" id="id" type="hidden" value="<%= staff._id %>">
+                                <input name="name" id="name" type="hidden" value="<%= staff.first_name %>">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </p>   
+                        </div>
+                    </div>
+                    <%}); %>
+                </ul>
+            </div>
+        </div>
+        <%- include('templates/footer') %>

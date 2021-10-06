@@ -5,7 +5,7 @@ var express = require('express'),
     shiftController = require('../controllers/shift-controller')
     userController = require('../controllers/user-controller')
    
-router.get('/home', rosterController.showRoster);
+router.get('/home', userController.userLoginPage);
 router.get("/", isLoggedIn, rosterController.showRosterAdmin); 
 router.post('/', isLoggedIn, rosterController.updateShift);
 router.get('/new-roster', isLoggedIn, rosterController.newRosterPage);
@@ -21,7 +21,7 @@ router.get('/history', isLoggedIn, rosterController.showHistoricRosters);
 router.get("/register", isLoggedIn, userController.newUserPage);
 router.post("/register", isLoggedIn, userController.createNewUser);
 router.get("/login", userController.userLoginPage); 
-router.post("/login", userController.userLoginAuth); 
+router.post("/login", userController.userLoginAuth);
 router.get("/logout", userController.userLogout); 
   
 function isLoggedIn(req, res, next) { 

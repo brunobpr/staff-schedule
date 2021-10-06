@@ -2,8 +2,10 @@
     <div id="table-content" class="bg-white">
         <div class="container bg-white">
             <h1 class="text-center">ROSTER</h1>
+            
             <h2 id="week-title" class="text-center">WEEK <%= data.roster.weekNumber %> (<%= data.roster.yearNumber %>)
             </h2>
+            <h4 class="text-center"><%= data.section %></h4>
         </div>
         <div class="alert alert-danger" id="alert" role="alert" hidden></div>
         <div class="table-responsive text-center">
@@ -19,14 +21,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% data.roster.staffs.forEach(function (staff){%>
+                    <% data.roster.staffs.forEach(function (staff){
+                        %>
                         <tr class="align-middle table-light">
                             <% if(staff.name == 'Viktor '){%>
                             <th id="table-staff-name" data-bs-toggle="modal" data-bs-target="#modalgame" scope="row">
                                 <%= staff.name %>
                             </th>
-                            <%
-                            }else{%>
+                            <% }else{%>
                                 <th id="table-staff-name" onClick="cleanValue('<%= staff.name %>')" scope="row">
                                     <%= staff.name %>
                                 </th>
@@ -60,7 +62,7 @@
                                 <%= staff.sunday%>
                             </td>
                         </tr>
-                        <%}); %>
+                    <%}); %>
                 </tbody>
             </table>
         </div>

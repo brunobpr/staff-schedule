@@ -1,5 +1,7 @@
 var Roster = require('../models/roster');
+var RosterFloor = require('../models/roster-floor');
 var Staff = require('../models/staff');
+var StaffFloor = require('../models/staff-floor');
 
 exports.createStaff = function (req, res) {
     data = req.body;
@@ -14,17 +16,64 @@ exports.createStaff = function (req, res) {
         }],
         "email": data.email,
     }
-    var newStaff = new Staff(staff);
-    newStaff.save(function (err, staff) {
+    const replacer = (key, value) => typeof value === 'undefined' ? null : value;
+    const stringified = JSON.stringify(req.user, replacer); 
+    const parsedUser = JSON.parse(stringified)
+    if(parsedUser.section == "kitchen"){
+        var newStaff = new Staff(staff);
+        newStaff.save(function (err, staff) {
+            if (err) {
+                res.status(400).json(err);
+            }
+            Roster.find({}, function (err, roster) {
+                if (err) {
+                    //If a error occurs display the message
+                    res.status(400).json(err);
+                }
+                body = roster[roster.length - 1];
+                if(data.lastName != ""){
+                    data.firstName = data.firstName + " " + data.lastName[0] + "."
+                }
+                body.staffs.push(
+                    {
+                        "name": data.firstName,
+                        "monday": "OFF",
+                        "tuesday": "OFF",
+                        "wednesday": "OFF",
+                        "thursday": "OFF",
+                        "friday": "OFF",
+                        "saturday": "OFF",
+                        "sunday": "OFF",
+                    }
+                )
+                // console.log(body);
+                Roster.updateOne({ _id: body._id }, {
+                    $addToSet:
+                        { staffs: body.staffs }
+                },
+                    function (err, result) {
+                        if (err) {
+                            console.log(err)
+                        }
+                    })
+                res.redirect('/');
+            })
+        });
+    }else{
+        var newStaff = new StaffFloor(staff);
+        newStaff.save(function (err, staff) {
         if (err) {
             res.status(400).json(err);
         }
-        Roster.find({}, function (err, roster) {
+        RosterFloor.find({}, function (err, roster) {
             if (err) {
                 //If a error occurs display the message
                 res.status(400).json(err);
             }
             body = roster[roster.length - 1];
+             if(data.lastName != ""){
+                    data.firstName = data.firstName + " " + data.lastName[0] + "."
+                }
             body.staffs.push(
                 {
                     "name": data.firstName,
@@ -38,7 +87,7 @@ exports.createStaff = function (req, res) {
                 }
             )
             // console.log(body);
-            Roster.updateOne({ _id: body._id }, {
+            RosterFloor.updateOne({ _id: body._id }, {
                 $addToSet:
                     { staffs: body.staffs }
             },
@@ -50,6 +99,7 @@ exports.createStaff = function (req, res) {
             res.redirect('/');
         })
     });
+    }
 };
 
 exports.getEmail = function () {
@@ -75,46 +125,92 @@ exports.updateStaff = function (req, res) {
         "last_name": data.lastName,
         "email": data.email,
     }
-    Staff.findById(data.id, function (err, staff) {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            old_name = staff.first_name;
-            Staff.updateOne({ _id: data.id }, updated,
-                function (err, result) {
+    const replacer = (key, value) => typeof value === 'undefined' ? null : value;
+    const stringified = JSON.stringify(req.user, replacer); 
+    const parsedUser = JSON.parse(stringified)
+    if(parsedUser.section == "kitchen"){
+        Staff.findById(data.id, function (err, staff) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                old_name = staff.first_name;
+                Staff.updateOne({ _id: data.id }, updated,
+                    function (err, result) {
+                        if (err) {
+                            console.log(err)
+                        }
+                    })
+                Roster.find({}, function (err, rosters) {
                     if (err) {
-                        console.log(err)
+                        //If a error occurs display the message
+                        res.status(400).json(err);
                     }
-                })
-            Roster.find({}, function (err, rosters) {
-                if (err) {
-                    //If a error occurs display the message
-                    res.status(400).json(err);
-                }
-                latest = rosters[rosters.length - 1];
-                Roster.findById(latest._id, function (err, roster) {
-                    if (err) {
-                        console.log(err);
-                    }
-                    else {
-                        roster.staffs.forEach(staff => {
-                            if (staff.name == old_name) {
-                                staff.name = data.firstName;
-                            }
-                        });
-                        Roster.updateOne({ _id: latest._id }, roster,
-                            function (err, result) {
-                                if (err) {
-                                    console.log(err)
+                    latest = rosters[rosters.length - 1];
+                    Roster.findById(latest._id, function (err, roster) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        else {
+                            roster.staffs.forEach(staff => {
+                                if (staff.name == old_name) {
+                                    staff.name = data.firstName;
                                 }
-                                res.redirect('back');
-                            })
+                            });
+                            Roster.updateOne({ _id: latest._id }, roster,
+                                function (err, result) {
+                                    if (err) {
+                                        console.log(err)
+                                    }
+                                    res.redirect('back');
+                                })
+                        }
+                    });
+                })
+            }
+        });
+    }else{
+        StaffFloor.findById(data.id, function (err, staff) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                old_name = staff.first_name;
+                StaffFloor.updateOne({ _id: data.id }, updated,
+                    function (err, result) {
+                        if (err) {
+                            console.log(err)
+                        }
+                    })
+                RosterFloor.find({}, function (err, rosters) {
+                    if (err) {
+                        //If a error occurs display the message
+                        res.status(400).json(err);
                     }
-                });
-            })
-        }
-    });
+                    latest = rosters[rosters.length - 1];
+                    RosterFloor.findById(latest._id, function (err, roster) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        else {
+                            roster.staffs.forEach(staff => {
+                                if (staff.name == old_name) {
+                                    staff.name = data.firstName;
+                                }
+                            });
+                            RosterFloor.updateOne({ _id: latest._id }, roster,
+                                function (err, result) {
+                                    if (err) {
+                                        console.log(err)
+                                    }
+                                    res.redirect('back');
+                                })
+                        }
+                    });
+                })
+            }
+        });
+    }
 };
 
 
@@ -123,6 +219,10 @@ exports.newStaffPage = function (req, res) {
 }
 
 exports.deleteSfaffPage = function (req, res) {
+    const replacer = (key, value) => typeof value === 'undefined' ? null : value;
+    const stringified = JSON.stringify(req.user, replacer); 
+    const parsedUser = JSON.parse(stringified)
+    if(parsedUser.section == "kitchen"){
     Staff.find({}, function (err, staff) {
         if (err) {
             //If a error occurs display the message
@@ -131,49 +231,92 @@ exports.deleteSfaffPage = function (req, res) {
         res.render('delete-staff', {
             data: staff
         });
-    });
+    });}else{
+        StaffFloor.find({}, function (err, staff) {
+            if (err) {
+                //If a error occurs display the message
+                res.status(400).json(err);
+            }
+            res.render('delete-staff', {
+                data: staff
+            });
+        });
+    }
 }
 
 
 exports.deleteSfaff = function (req, res) {
-    Staff.findByIdAndDelete(req.body.id, function (err, staff) {
-        
-        if (err) {
-            console.log(err)
-        }
-        else {
-            Roster.find({}, function (err, rosters) {
-                if (err) {
-                    //If a error occurs display the message
-                    res.status(400).json(err);
-                }
-                latest = rosters[rosters.length - 1];
-                Roster.findById(latest._id, function (err, roster) {
+    const replacer = (key, value) => typeof value === 'undefined' ? null : value;
+    const stringified = JSON.stringify(req.user, replacer); 
+    const parsedUser = JSON.parse(stringified)
+    if(parsedUser.section == "kitchen"){
+        Staff.findByIdAndDelete(req.body.id, function (err, staff) {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                Roster.find({}, function (err, rosters) {
                     if (err) {
-                        console.log(err);
+                        //If a error occurs display the message
+                        res.status(400).json(err);
                     }
-                    else {
-                        roster.staffs.forEach(staff => {
-                            if (staff.name == req.body.name) {
-                                
-                                index = roster.staffs.indexOf(staff)
-                                console.log(index);
-
-                                delete roster.staffs[index];
-                                console.log("removing: " + staff.name);
+                    latest = rosters[rosters.length - 1];
+                    Roster.findById(latest._id, function (err, roster) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        else {
+                            roster.staffs.forEach(staff => {
+                                if (staff.name == req.body.name) {
+                                    index = roster.staffs.indexOf(staff)
+                                    roster.staffs.splice(index, 1);
+                                }
+                            });
+                            Roster.updateOne({ _id: latest._id }, roster,
+                                function (err, result) {
+                                    if (err) {
+                                        console.log(err)
+                                    }
+                                })
+                        }
+                    });
+                })
+                res.redirect('back');
+            }
+        })}else{
+            StaffFloor.findByIdAndDelete(req.body.id, function (err, staff) {
+                if (err) {
+                    console.log(err)
+                }
+                else {
+                    RosterFloor.find({}, function (err, rosters) {
+                        if (err) {
+                            //If a error occurs display the message
+                            res.status(400).json(err);
+                        }
+                        latest = rosters[rosters.length - 1];
+                        RosterFloor.findById(latest._id, function (err, roster) {
+                            if (err) {
+                                console.log(err);
+                            }
+                            else {
+                            roster.staffs.forEach(staff => {
+                                if (staff.name == req.body.name) {
+                                    index = roster.staffs.indexOf(staff)
+                                    roster.staffs.splice(index, 1);
+                                }
+                            });
+                            RosterFloor.updateOne({ _id: latest._id }, roster,
+                                    function (err, result) {
+                                        if (err) {
+                                            console.log(err)
+                                        }
+                                    })
                             }
                         });
-                       
-                        Roster.updateOne({ _id: latest._id }, roster,
-                            function (err, result) {
-                                if (err) {
-                                    console.log(err)
-                                }
-                            })
-                    }
-                });
+                    })
+                    res.redirect('back');
+                }
             })
-            res.redirect('back');
         }
-    })
 }

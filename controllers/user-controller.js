@@ -17,7 +17,8 @@ exports.newUserPage = function (req, res) {
 exports.createNewUser = function (req, res) {
     var username = req.body.username
     var password = req.body.password
-    User.register(new User({ username: username }),
+    var section = "floor"
+    User.register(new User({ username: username , section: "floor"}),
         password, function (err, user) {
             if (err) {
                 return res.render("register", {
@@ -37,6 +38,7 @@ exports.userLoginPage = function (req, res) {
     });
 };
 
+
 exports.userLoginAuth = function (req, res, next) {
     passport.authenticate('local', function (err, user, info) {
         if (err) { return next(err); }
@@ -55,4 +57,8 @@ exports.userLoginAuth = function (req, res, next) {
 exports.userLogout = function (req, res) {
     req.logout();
     res.redirect("/");
+}
+
+exports.userType = function(req, res){
+
 }

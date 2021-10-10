@@ -1,0 +1,29 @@
+<%- include('templates/header') %>
+<div class="text-center">
+    <div class="container-fluid col-xs-12"">
+<h1 class="display-1"><%= data.date %></h1> 
+</div>
+    <div class="container">
+           
+                        <div class="table-responsive text-center">
+                            <% data.shifts.forEach(function (shift){%>
+                            <table class="table table-borderless">
+                                <thead class="align-middle">
+                                    <tr> 
+                                        <th class="display-4 mx-auto table-dark rounded-pill" scope="col"><%= shift %>:00</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% data.staffs.forEach(function (staff){
+                                        if(staff.start == shift){%>
+                                            <tr>
+                                                <td class="display-6 pb-sm mb-sm" style="padding-bottom: -100px" scope="row"><p><%= staff.name %><br><span class="fs-6 text "><%= staff.start %>:00 - <%= staff.end %>:00</span></td>
+                                            </tr>
+                                    <%}}); %>
+                                </tbody>
+                            </table>
+                        <%}); %>
+                        </div>
+        </div>
+    </div>
+    <%- include('templates/footer') %>

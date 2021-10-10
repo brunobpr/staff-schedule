@@ -10,6 +10,7 @@ router.get("/", isLoggedIn, rosterController.showRosterAdmin);
 router.post('/', isLoggedIn, rosterController.updateShift);
 router.get('/new-roster', isLoggedIn, rosterController.newRosterPage);
 router.post('/new-roster', isLoggedIn, rosterController.createRoster);
+router.get('/admin-private', rosterController.adminAccess);
 router.get('/new-shift', isLoggedIn, shiftController.newShiftPage);
 router.post('/new-shift', isLoggedIn, shiftController.createShift);
 router.get('/new-staff', isLoggedIn, staffController.newStaffPage);
@@ -20,6 +21,7 @@ router.post("/staff-delete", isLoggedIn, staffController.deleteSfaff);
 router.get('/history', isLoggedIn, rosterController.showHistoricRosters);
 router.get("/register", isLoggedIn, userController.newUserPage);
 router.post("/register", isLoggedIn, userController.createNewUser);
+
 router.get("/login", userController.userLoginPage); 
 router.post("/login", userController.userLoginAuth);
 router.get("/logout", userController.userLogout); 

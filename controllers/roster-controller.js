@@ -78,7 +78,7 @@ exports.createRoster = function (req, res) {
     data = req.body;
     var staffs = [];
     if (data.weekNumber > 52) {
-        data.weekNumber = 0;
+        data.weekNumber = 1;
     }
     const replacer = (key, value) => typeof value === 'undefined' ? null : value;
     const stringified = JSON.stringify(req.user, replacer);

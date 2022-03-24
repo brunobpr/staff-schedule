@@ -1,11 +1,10 @@
 <%- include('templates/header-admin') %>
-    <div id="table-content" class="bg-white">
-        <div class="container bg-white">
-            <h1 class="text-center">ROSTER</h1>
-            
-            <h2 id="week-title" class="text-center">WEEK <%= data.roster.weekNumber %> (<%= data.roster.yearNumber %>)
-            </h2>
-            <h4 class="text-center"><%= data.section %></h4>
+    <div id="table-content">
+        <div class="container">
+            <h2 id="week-title" class="text-center"><img src="large-logo.png" height="45"> Roster <span id="week-title-span"><%= data.section %> <img src="large-logo.png" height="45"><span></h5>
+                
+            <h3 id="week-title" class="text-center">Week <%= data.roster.weekNumber %>(<%= data.roster.yearNumber %>)</h3>  
+           
         </div>
         <div class="alert alert-danger" id="alert" role="alert" hidden></div>
         <div class="table-responsive text-center">
@@ -14,8 +13,8 @@
                     <tr class="table text-white" id="table-header">
                         <th class="align-middle" scope="col">Staff</th>
                         <% data.days.forEach(function (day){%>
-                            <th class="days" id="monday"scope="col">
-                                <%= day %>
+                            <th scope="col">
+                                <%= day.substr(0, 7) %>)
                             </th>
                             <%}); %>
                     </tr>
@@ -28,12 +27,8 @@
                             <th id="table-staff-name" data-bs-toggle="modal" data-bs-target="#modalgame" scope="row">
                                 <%= staff.name %>
                             </th>
-                            <%}else if(staff.name == 'Bruno'){%>
-                                <th id="table-staff-name" onClick="downloadICSFile('Bruno')" >
-                                    <%= staff.name %>
-                                </th>
                             <%}else{%>
-                                <th id="table-staff-name" onClick="cleanValue('<%= staff.name %>')" scope="row">
+                                <th id="table-staff-name" onClick="downloadICSFile('<%= staff.name %>', '<%= data.roster.weekNumber %>', '<%= data.days %>')" scope="row">
                                     <%= staff.name %>
                                 </th>
                             <% } %>

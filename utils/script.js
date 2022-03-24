@@ -115,8 +115,7 @@ function calculateHours(){
     }
 }
 
-function downloadICSFile(staffName){
-    var days = document.getElementsByClassName("days");
+function downloadICSFile(staffName, weekNumber, days){
     var shifts =  document.getElementsByClassName(staffName);
     var calendar = "BEGIN:VCALENDAR\n"
     calendar +="CALSCALE:GREGORIAN\n"
@@ -127,27 +126,23 @@ function downloadICSFile(staffName){
     for(let i = 0; i <= 6; i++){
         var shift = shifts[i].innerHTML.replaceAll(" ", "")
         if(shift.match('[0-9]+')){
-            var date = days[i].innerHTML.replaceAll(" ", "")
+            date = days.split(",")[i];
             calendar +="BEGIN:VEVENT\n"
             calendar +="TRANSP:OPAQUE\n"
-            calendar +="DTEND:2022"+date.substring(8, 10)+date.substring(5, 7)+"T"+shift.substring(3, 5)+"0000Z\n"
             calendar +="X-APPLE-TRAVEL-ADVISORY-BEHAVIOR:AUTOMATIC\n"
-            calendar +="UID:19970610T1"+date.substring(8, 10)+date.substring(5, 7)+shift.substring(1, 3)+"-AF23B2@staff.com\n"
+            calendar +="UID:ROSTER2022"+date.substring(8, 10)+date.substring(5, 7)+shift.substring(1, 3)+"\n"
             calendar +="LOCATION: Swords Pavilions Shopping Centre\n"
             calendar +="SUMMARY: Roosters Work\n"
             calendar +="DTSTART:2022"+date.substring(8, 10)+date.substring(5, 7)+"T"+shift.substring(1, 3)+"0000Z\n"
+            calendar +="DTEND:2022"+date.substring(8, 10)+date.substring(5, 7)+"T"+shift.substring(3, 5)+"0000Z\n"
             calendar +="GEO:53.454205,-6.219668\n"
             calendar +="END:VEVENT\n"
         }
     }
     calendar +="END:VCALENDAR\n"
-    var filename = "output.ics";
-    var hiddenElement = document.createElement('a');  
-    console.log(calendar)
-    hiddenElement.href = 'data:text/ics;charset=utf-8,' + encodeURI(calendar);  
-    hiddenElement.target = '_blank';  
-      
-    //provide the name for the CSV file to be downloaded  
-    hiddenElement.download = 'Bruno.ics';  
-    hiddenElement.click();  
+    var calendarElementHidden = document.createElement('a');  
+    calendarElementHidden.href = 'data:text/calendar;charset=utf-8,' + encodeURI(calendar);  
+    calendarElementHidden.target = '_blank';    
+    calendarElementHidden.download = staffName + weekNumber +'.ics';  
+    calendarElementHidden.click();  
 }

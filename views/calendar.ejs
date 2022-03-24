@@ -14,7 +14,7 @@
                     <tr class="table text-white" id="table-header">
                         <th class="align-middle" scope="col">Staff</th>
                         <% data.days.forEach(function (day){%>
-                            <th scope="col">
+                            <th class="days" id="monday"scope="col">
                                 <%= day %>
                             </th>
                             <%}); %>
@@ -28,36 +28,40 @@
                             <th id="table-staff-name" data-bs-toggle="modal" data-bs-target="#modalgame" scope="row">
                                 <%= staff.name %>
                             </th>
-                            <% }else{%>
+                            <%}else if(staff.name == 'Bruno'){%>
+                                <th id="table-staff-name" onClick="downloadICSFile('Bruno')" >
+                                    <%= staff.name %>
+                                </th>
+                            <%}else{%>
                                 <th id="table-staff-name" onClick="cleanValue('<%= staff.name %>')" scope="row">
                                     <%= staff.name %>
                                 </th>
                             <% } %>
-                            <td data-bs-toggle="modal" onClick="saveValue('<%= staff.name %>,monday')"
+                            <td class="<%= staff.name %>" data-bs-toggle="modal" onClick="saveValue('<%= staff.name %>,monday')"
                                 data-bs-target="#modalShift">
                                 <%= staff.monday %>
                             </td>
-                            <td data-bs-toggle="modal" onClick="saveValue('<%= staff.name %>,tuesday')"
+                            <td class="<%= staff.name %>" data-bs-toggle="modal" onClick="saveValue('<%= staff.name %>,tuesday')"
                                 data-bs-target="#modalShift">
                                 <%= staff.tuesday %>
                             </td>
-                            <td data-bs-toggle="modal" onClick="saveValue('<%= staff.name %>,wednesday')"
+                            <td class="<%= staff.name %>" data-bs-toggle="modal" onClick="saveValue('<%= staff.name %>,wednesday')"
                                 data-bs-target="#modalShift">
                                 <%= staff.wednesday %>
                             </td>
-                            <td data-bs-toggle="modal" onClick="saveValue('<%= staff.name %>,thursday')"
+                            <td class="<%= staff.name %>" data-bs-toggle="modal" onClick="saveValue('<%= staff.name %>,thursday')"
                                 data-bs-target="#modalShift">
                                 <%= staff.thursday %>
                             </td>
-                            <td data-bs-toggle="modal" onClick="saveValue('<%= staff.name %>,friday')"
+                            <td class="<%= staff.name %>" data-bs-toggle="modal" onClick="saveValue('<%= staff.name %>,friday')"
                                 data-bs-target="#modalShift">
                                 <%= staff.friday %>
                             </td>
-                            <td data-bs-toggle="modal" onClick="saveValue('<%= staff.name %>,saturday')"
+                            <td class="<%= staff.name %>" data-bs-toggle="modal" onClick="saveValue('<%= staff.name %>,saturday')"
                                 data-bs-target="#modalShift">
                                 <%= staff.saturday %>
                             </td>
-                            <td data-bs-toggle="modal" onClick="saveValue('<%= staff.name %>,sunday')"
+                            <td class="<%= staff.name %>" data-bs-toggle="modal" onClick="saveValue('<%= staff.name %>,sunday')"
                                 data-bs-target="#modalShift">
                                 <%= staff.sunday%>
                             </td>

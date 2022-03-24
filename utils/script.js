@@ -1,4 +1,3 @@
-
 function saveValue(text) {
     savedvalue = text;
     hiddenInput = document.getElementsByName('staffName');
@@ -114,4 +113,41 @@ function calculateHours(){
     if(modal == "false"){
         document.location.reload();
     }
+}
+
+function downloadICSFile(staffName){
+    var days = document.getElementsByClassName("days");
+    var shifts =  document.getElementsByClassName(staffName);
+    var calendar = "BEGIN:VCALENDAR\n"
+    calendar +="CALSCALE:GREGORIAN\n"
+    calendar +="VERSION:2.0\n"
+    calendar +="X-WR-CALNAME:Work\n"
+    calendar +="METHOD:PUBLISH\n"
+    calendar +="PRODID:-//Apple Inc.//macOS 12.0.1//EN\n"
+    for(let i = 0; i <= 6; i++){
+        var shift = shifts[i].innerHTML.replaceAll(" ", "")
+        if(shift.match('[0-9]+')){
+            var date = days[i].innerHTML.replaceAll(" ", "")
+            calendar +="BEGIN:VEVENT\n"
+            calendar +="TRANSP:OPAQUE\n"
+            calendar +="DTEND:2022"+date.substring(8, 10)+date.substring(5, 7)+"T"+shift.substring(3, 5)+"0000Z\n"
+            calendar +="X-APPLE-TRAVEL-ADVISORY-BEHAVIOR:AUTOMATIC\n"
+            calendar +="UID:19970610T1"+date.substring(8, 10)+date.substring(5, 7)+shift.substring(1, 3)+"-AF23B2@staff.com\n"
+            calendar +="LOCATION: Swords Pavilions Shopping Centre\n"
+            calendar +="SUMMARY: Roosters Work\n"
+            calendar +="DTSTART:2022"+date.substring(8, 10)+date.substring(5, 7)+"T"+shift.substring(1, 3)+"0000Z\n"
+            calendar +="GEO:53.454205,-6.219668\n"
+            calendar +="END:VEVENT\n"
+        }
+    }
+    calendar +="END:VCALENDAR\n"
+    var filename = "output.ics";
+    var hiddenElement = document.createElement('a');  
+    console.log(calendar)
+    hiddenElement.href = 'data:text/ics;charset=utf-8,' + encodeURI(calendar);  
+    hiddenElement.target = '_blank';  
+      
+    //provide the name for the CSV file to be downloaded  
+    hiddenElement.download = 'Bruno.ics';  
+    hiddenElement.click();  
 }

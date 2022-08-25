@@ -3,8 +3,7 @@
         <div class="container">
             <h2 id="week-title" class="text-center"><img src="large-logo.png" height="45"> Roster <span id="week-title-span"><%= data.section %> <img src="large-logo.png" height="45"><span></h5>
                 
-            <h3 id="week-title" class="text-center">Week <%= data.roster.weekNumber %>(<%= data.roster.yearNumber %>)</h3>  
-           
+            <h3 id="week-title" class="text-center">Week <%= data.roster.weekNumber %> (<%= data.days[0].substr(5, 5)%> - <%= data.days[6].substr(5, 5) %>)</h3>  
         </div>
         <div class="alert alert-danger" id="alert" role="alert" hidden></div>
         <div class="table-responsive text-center">
